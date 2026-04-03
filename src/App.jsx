@@ -50,7 +50,7 @@ function App() {
       const plant = {
         ...result,
         id: Date.now().toString(),
-        imageUrl: selectedImage,
+        imageUrl: result.imageUrl || selectedImage,
       };
       setSavedPlants((prev) => [plant, ...prev]);
       setIsSaved(true);
