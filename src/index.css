@@ -168,3 +168,36 @@ button {
     width: 100%;
   }
 }
+
+/* ========================================================= */
+/* ✨ LOGO BRUSH SHIMMER ANIMATION                            */
+/* ========================================================= */
+.navbar-brand h2 {
+  font-weight: 900;
+  /* Use the gradient to paint the dark text -> green swipe -> dark text */
+  background: linear-gradient(
+    110deg,
+    var(--text-primary) 0%,
+    var(--text-primary) 40%,
+    var(--accent) 50%,
+    #34d399 55%,
+    var(--text-primary) 60%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  animation: shimmerBrush 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  display: inline-block;
+}
+
+/* Force the nested 'Detect' span to merge functionally with the gradient */
+.navbar-brand h2 span {
+  color: inherit !important;
+}
+
+@keyframes shimmerBrush {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
