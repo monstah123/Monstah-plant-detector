@@ -1,0 +1,95 @@
+import { motion, AnimatePresence } from 'framer-motion';
+import { Leaf, TreePine, Heart, Trash2, ScanLine } from 'lucide-react';
+import { getHealthColor } from '../utils/plantIdentifier';
+
+export default function Dashboard({ plants, onDeletePlant, onSwitchToDetect }) {
+  const avgHealth = plants.length
+    ? Math.round(plants.reduce((sum, p) => sum + p.health, 0) / plants.length)
+    : 0;
+
+  if (plants.length === 0) {
+    return (
+      <motion.div
+        className="empty-dashboard"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
+        <TreePine size={64} className="empty-icon" />
+        <h3>No plants detected yet</h3>
+        <p>Start by scanning a plant to build your collection!</p>
+        <button className="btn-primary" onClick={onSwitchToDetect} id="btn-start-scanning">
+          <ScanLine size={16} /> Start Scanning
+        </button>
+      </motion.div>
+    );
+  }
+
+  return (
+    <div className="dashboard">
+      <motion.div
+        className="dashboard-header"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h2>My Plant Collection</h2>
+      </motion.div>
+
+      <motion.div
+        className="dashboard-stats"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+      >
+        <div className="stat-card">
+          <div className="stat-value">{plants.length}</div>
+          <div className="stat-label">Plants Detected</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value" style={{ color: getHealthColor(avgHealth) }}>{avgHealth}%</div>
+          <div className="stat-label">Avg Health Score</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{new Set(plants.map(p => p.family)).size}</div>
+          <div className="stat-label">Plant Families</div>
+        </div>
+      </motion.div>
+
+      <div className="plant-grid">
+        <AnimatePresence>
+          {plants.map((plant, index) => (
+            <motion.div
+              key={plant.id}
+              className="plant-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ delay: index * 0.05 }}
+              layout
+            >
+              <img src={plant.imageUrl} alt={plant.name} />
+              <div className="plant-card-body">
+                <h3>{plant.name}</h3>
+                <p className="card-scientific">{plant.scientific}</p>
+                <div className="card-health">
+                  <span className="health-dot" style={{ background: getHealthColor(plant.health) }} />
+                  {plant.health}% Health
+                </div>
+                <p className="card-date">{new Date(plant.detectedAt).toLocaleDateString('en-US', {
+                  month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                })}</p>
+                <button
+                  className="btn-secondary"
+                  style={{ marginTop: '10px', width: '100%', justifyContent: 'center', fontSize: '13px', padding: '8px' }}
+                  onClick={() => onDeletePlant(plant.id)}
+                >
+                  <Trash2 size={14} /> Remove
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
