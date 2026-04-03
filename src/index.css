@@ -60,3 +60,111 @@ button {
   outline: none;
   font-family: inherit;
 }
+/* ========================================================= */
+/* 📱 MOBILE RESPONSIVENESS (NATIVE APP FEEL)                  */
+/* ========================================================= */
+@media screen and (max-width: 600px) {
+  /* Container adjustments */
+  .app {
+    padding: 10px;
+    padding-bottom: 30px; /* Safe area for scrolling */
+  }
+
+  /* Navbar shrinking */
+  nav.navbar {
+    padding: 12px 15px;
+    border-radius: 14px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .nav-tabs {
+    width: 100%;
+    justify-content: center;
+  }
+  .tab.active {
+    flex: 1; /* Stretch cleanly across */
+    text-align: center;
+  }
+
+  /* Hero Section (Detect View) */
+  .hero {
+    margin-top: 15px;
+    padding: 0 5px;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    padding: 0 10px;
+  }
+
+  /* Result Card & Upload Zone Base */
+  .upload-zone {
+    padding: 30px 15px;
+    margin-top: 20px;
+  }
+  .result-card-container {
+    padding: 15px;
+    border-radius: 16px;
+    margin-top: 20px;
+  }
+  .result-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  /* Feature Grid Layout Fixes (Water, Light, etc) */
+  .metrics-grid {
+    grid-template-columns: 1fr; /* Stack into a single native-app column */
+    gap: 10px;
+  }
+  .metric-card {
+    padding: 15px;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* Care Tips List */
+  .tips-list {
+    padding-left: 0;
+  }
+  .tip-item {
+    font-size: 0.9rem;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+  }
+
+  /* Dashboard View Fixes */
+  .dashboard-header {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .dashboard-stats {
+    flex-direction: column; /* Stack stats on mobile */
+    gap: 10px;
+  }
+  .stat-card {
+    border-radius: 12px;
+  }
+  .plant-grid {
+    grid-template-columns: 1fr; /* 1 card per row */
+  }
+  
+  /* Action Buttons scaling up for FAT FINGER touch targets */
+  button {
+    padding: 16px 20px;
+    font-size: 16px;
+    min-height: 48px; /* Apple UI Guideline */
+  }
+  .btn-upload-actions {
+    flex-direction: column; /* Stack Browse/Camera buttons */
+    width: 100%;
+  }
+  .btn-upload-actions button {
+    width: 100%;
+  }
+}

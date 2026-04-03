@@ -22,6 +22,50 @@ function App() {
   });
   const [isSaved, setIsSaved] = useState(false);
 
+  // --- PREMIUM UI SOUND SYSTEM ---
+  useEffect(() => {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    const playPop = () => {
+      // Browsers block audio until first user interaction, resume securely
+      if (audioCtx.state === 'suspended') audioCtx.resume().catch(()=>console.log("Audio blocked"));
+      
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      // Crisp organic synthetic pop
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.04);
+      
+      gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start(audioCtx.currentTime);
+      oscillator.stop(audioCtx.currentTime + 0.05);
+    };
+
+    const handleInteraction = (e) => {
+      // Trigger sound ONLY if they hover over a button or interactive card
+      if (e.target.closest('button') || e.target.closest('.plant-card')) {
+        playPop();
+      }
+    };
+
+    // Use capturing phase so we catch the hover before elements stop propagation
+    document.addEventListener('mouseenter', handleInteraction, true);
+    document.addEventListener('touchstart', handleInteraction, { passive: true });
+
+    return () => {
+      document.removeEventListener('mouseenter', handleInteraction, true);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+  }, []);
+  // --- END SOUND SYSTEM ---
+
   useEffect(() => {
     localStorage.setItem('monstah-plants', JSON.stringify(savedPlants));
   }, [savedPlants]);
