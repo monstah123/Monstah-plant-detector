@@ -34,6 +34,12 @@ function App() {
       setResult(plantResult);
     } catch (err) {
       console.error('Analysis failed:', err);
+      
+      // Specifically grab the backend error message if Vercel kicks it back
+      const backendError = err.response?.data?.error;
+      const networkError = err.message;
+      
+      alert(`🚨 ANALYSIS FAILED\n\nReason: ${backendError || networkError}\n\nIf testing locally, start Vercel Dev. If on Vercel, check the Logs tab.`);
     } finally {
       setIsAnalyzing(false);
     }
