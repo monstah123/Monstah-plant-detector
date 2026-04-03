@@ -50,6 +50,8 @@ export default async function handler(req, res) {
     const plantData = JSON.parse(response.data.choices[0].message.content);
     return res.status(200).json(plantData);
   } catch (error) {
-    return res.status(500).json({ error: 'Analysis failed' });
+    const aiError = error.response?.data?.error?.message || error.message;
+    console.error("OpenAI Error Detail:", aiError);
+    return res.status(500).json({ error: aiError || 'Analysis failed' });
   }
 }
