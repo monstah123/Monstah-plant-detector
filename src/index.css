@@ -177,12 +177,12 @@ button {
   /* Use the gradient to paint the dark text -> green swipe -> dark text */
   background: linear-gradient(
     110deg,
-    var(--text-primary) 0%,
-    var(--text-primary) 40%,
+    var(--text-h) 0%,
+    var(--text-h) 40%,
     var(--accent) 50%,
     #34d399 55%,
-    var(--text-primary) 60%,
-    var(--text-primary) 100%
+    var(--text-h) 60%,
+    var(--text-h) 100%
   );
   background-size: 200% auto;
   color: transparent !important;
