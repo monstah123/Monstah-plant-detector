@@ -50,3 +50,11 @@ export function getHealthLabel(health) {
   if (health >= 50) return 'Fair';
   return 'Needs Attention';
 }
+
+export async function deletePlantFromS3(imageUrl) {
+  try {
+    await axios.post('/api/delete', { imageUrl });
+  } catch (error) {
+    console.error("Failed to delete from S3:", error);
+  }
+}

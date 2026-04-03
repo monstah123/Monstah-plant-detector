@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, TreePine, Heart, Trash2, ScanLine } from 'lucide-react';
+import { Leaf, TreePine, Heart, Trash2, ScanLine, Eye } from 'lucide-react';
 import { getHealthColor } from '../utils/plantIdentifier';
 
-export default function Dashboard({ plants, onDeletePlant, onSwitchToDetect }) {
+export default function Dashboard({ plants, onDeletePlant, onSwitchToDetect, onRevisitPlant }) {
   const avgHealth = plants.length
     ? Math.round(plants.reduce((sum, p) => sum + p.health, 0) / plants.length)
     : 0;
@@ -78,13 +78,22 @@ export default function Dashboard({ plants, onDeletePlant, onSwitchToDetect }) {
                 <p className="card-date">{new Date(plant.detectedAt).toLocaleDateString('en-US', {
                   month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
                 })}</p>
-                <button
-                  className="btn-secondary"
-                  style={{ marginTop: '10px', width: '100%', justifyContent: 'center', fontSize: '13px', padding: '8px' }}
-                  onClick={() => onDeletePlant(plant.id)}
-                >
-                  <Trash2 size={14} /> Remove
-                </button>
+                <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                  <button
+                    className="btn-primary"
+                    style={{ flex: 1, justifyContent: 'center', fontSize: '13px', padding: '8px', background: '#ecfdf5', color: '#10b981', border: '1px solid #10b981' }}
+                    onClick={() => onRevisitPlant(plant)}
+                  >
+                    <Eye size={14} /> Revisit
+                  </button>
+                  <button
+                    className="btn-secondary"
+                    style={{ flex: 1, justifyContent: 'center', fontSize: '13px', padding: '8px' }}
+                    onClick={() => onDeletePlant(plant.id)}
+                  >
+                    <Trash2 size={14} /> Remove
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}

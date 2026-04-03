@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import UploadZone from './components/UploadZone';
 import ResultCard from './components/ResultCard';
 import Dashboard from './components/Dashboard';
-import { identifyPlant } from './utils/plantIdentifier';
+import { identifyPlant, deletePlantFromS3 } from './utils/plantIdentifier';
 import './App.css';
 
 function App() {
@@ -64,7 +64,20 @@ function App() {
   };
 
   const handleDeletePlant = (id) => {
+    const plantToDelete = savedPlants.find(p => p.id === id);
+    // Delete from AWS silently in the background
+    if (plantToDelete && plantToDelete.imageUrl && plantToDelete.imageUrl.includes('.amazonaws.com/')) {
+        deletePlantFromS3(plantToDelete.imageUrl);
+    }
+    // Delete from Local UI
     setSavedPlants((prev) => prev.filter((p) => p.id !== id));
+  };
+  
+  const handleRevisitPlant = (plant) => {
+    setResult(plant);
+    setSelectedImage(plant.imageUrl);
+    setIsSaved(true);
+    setCurrentView('detect');
   };
 
   return (
@@ -135,6 +148,7 @@ function App() {
             <Dashboard
               plants={savedPlants}
               onDeletePlant={handleDeletePlant}
+              onRevisitPlant={handleRevisitPlant}
               onSwitchToDetect={() => setCurrentView('detect')}
             />
           </motion.main>
