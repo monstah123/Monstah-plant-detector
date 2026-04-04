@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
+import LandingPage from './components/LandingPage';
 import UploadZone from './components/UploadZone';
 import ResultCard from './components/ResultCard';
 import Dashboard from './components/Dashboard';
@@ -8,7 +9,7 @@ import { identifyPlant, deletePlantFromS3 } from './utils/plantIdentifier';
 import './App.css';
 
 function App() {
-  const [currentView, setCurrentView] = useState('detect');
+  const [currentView, setCurrentView] = useState('landing');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState(null);
@@ -50,12 +51,11 @@ function App() {
 
     const handleInteraction = (e) => {
       // Trigger sound ONLY if they hover over a button or interactive card
-      if (e.target.closest('button') || e.target.closest('.plant-card')) {
+      if (e.target.closest('button') || e.target.closest('.feature-card') || e.target.closest('.plant-card')) {
         playPop();
       }
     };
 
-    // Use capturing phase so we catch the hover before elements stop propagation
     document.addEventListener('mouseenter', handleInteraction, true);
     document.addEventListener('touchstart', handleInteraction, { passive: true });
 
@@ -64,7 +64,6 @@ function App() {
       document.removeEventListener('touchstart', handleInteraction);
     };
   }, []);
-  // --- END SOUND SYSTEM ---
 
   useEffect(() => {
     localStorage.setItem('monstah-plants', JSON.stringify(savedPlants));
@@ -78,12 +77,9 @@ function App() {
       setResult(plantResult);
     } catch (err) {
       console.error('Analysis failed:', err);
-      
-      // Specifically grab the backend error message if Vercel kicks it back
       const backendError = err.response?.data?.error;
       const networkError = err.message;
-      
-      alert(`🚨 ANALYSIS FAILED\n\nReason: ${backendError || networkError}\n\nIf testing locally, start Vercel Dev. If on Vercel, check the Logs tab.`);
+      alert(`🚨 ANALYSIS FAILED\n\nReason: ${backendError || networkError}\n\nCheck logs.`);
     } finally {
       setIsAnalyzing(false);
     }
@@ -109,11 +105,9 @@ function App() {
 
   const handleDeletePlant = (id) => {
     const plantToDelete = savedPlants.find(p => p.id === id);
-    // Delete from AWS silently in the background
     if (plantToDelete && plantToDelete.imageUrl && plantToDelete.imageUrl.includes('.amazonaws.com/')) {
         deletePlantFromS3(plantToDelete.imageUrl);
     }
-    // Delete from Local UI
     setSavedPlants((prev) => prev.filter((p) => p.id !== id));
   };
   
@@ -129,7 +123,11 @@ function App() {
       <Navbar currentView={currentView} setCurrentView={setCurrentView} />
 
       <AnimatePresence mode="wait">
-        {currentView === 'detect' ? (
+        {currentView === 'landing' && (
+          <LandingPage onStart={() => setCurrentView('detect')} />
+        )}
+
+        {currentView === 'detect' && (
           <motion.main
             key="detect"
             initial={{ opacity: 0, x: -20 }}
@@ -166,7 +164,7 @@ function App() {
                 >
                   <div className="spinner" />
                   <h3>Analyzing your plant...</h3>
-                  <p>Our AI is identifying species, checking health markers, and preparing care tips.</p>
+                  <p>Our AI is identifying species and health markers.</p>
                 </motion.div>
               )}
             </section>
@@ -181,7 +179,9 @@ function App() {
               />
             )}
           </motion.main>
-        ) : (
+        )}
+
+        {currentView === 'dashboard' && (
           <motion.main
             key="dashboard"
             initial={{ opacity: 0, x: 20 }}

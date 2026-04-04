@@ -25,7 +25,7 @@ export default function Navbar({ currentView, setCurrentView }) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <div className="navbar-brand">
+      <div className="navbar-brand" onClick={() => setCurrentView('landing')} style={{ cursor: 'pointer' }}>
         <Leaf className="logo-icon" strokeWidth={2.5} color="var(--accent)" />
         <h2>Monstah <span>Detect</span></h2>
       </div>
