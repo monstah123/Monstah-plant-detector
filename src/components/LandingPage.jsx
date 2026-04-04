@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Leaf, ShieldCheck, Cloud, Volume2, ArrowRight, ImagePlus, Camera } from 'lucide-react';
+import { Leaf, ShieldCheck, Cloud, Volume2, ArrowRight, ImagePlus, Camera, ShieldAlert, Sparkles } from 'lucide-react';
 
 const LandingPage = ({ onStart }) => {
   const features = [
@@ -22,6 +22,16 @@ const LandingPage = ({ onStart }) => {
       icon: <Camera className="icon-red" />,
       title: "Mobile Camera",
       desc: "Optimized for mobile! Snap a live photo on the go for real-time field analysis."
+    },
+    {
+      icon: <ShieldAlert className="icon-rose" />,
+      title: "Safety & Toxicity",
+      desc: "Instant safety checks for pets and kids. Know if your plant is toxic before you buy it."
+    },
+    {
+      icon: <Sparkles className="icon-cyan" />,
+      title: "Smart Care Insights",
+      desc: "Personalized watering, humidity, and light optimization for every unique species."
     },
     {
       icon: <Cloud className="icon-purple" />,
