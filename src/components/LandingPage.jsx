@@ -1,7 +1,16 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, ShieldCheck, Cloud, Volume2, ArrowRight, ImagePlus, Camera, ShieldAlert, Sparkles } from 'lucide-react';
 
 const LandingPage = ({ onStart }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 900);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const features = [
     {
       icon: <Leaf className="icon-green" />,
@@ -46,7 +55,7 @@ const LandingPage = ({ onStart }) => {
   ];
 
   return (
-    <div className="landing-container">
+    <div className="landing-container" style={{ overflowX: 'hidden' }}>
       {/* GLOWING ORBS FOR DEPTH */}
       <div className="bg-glow-1" />
       <div className="bg-glow-2" />
@@ -58,34 +67,51 @@ const LandingPage = ({ onStart }) => {
         transition={{ duration: 0.8 }}
       >
         <div className="badge">VERSION 2.0 LIVE</div>
-        <h1 className="hero-text">
+        <h1 className="hero-text" style={isMobile ? { fontSize: '32px' } : {}}>
           The Future of <span>Plant Care</span> is Autonomous.
         </h1>
-        <p className="hero-sub">
+        <p className="hero-sub" style={isMobile ? { fontSize: '15px' } : {}}>
           Monstah Detect combines sophisticated AI with cloud-native persistence to give your garden a voice. 
           Stop guessing, start knowing.
         </p>
         
-        <div className="hero-actions">
+        <div className="hero-actions" style={isMobile ? { flexDirection: 'column' } : {}}>
           <motion.button 
             className="btn-primary"
+            style={isMobile ? { width: '100%', marginBottom: '10px' } : {}}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onStart}
           >
             Launch Scanner <ArrowRight size={20} />
           </motion.button>
-          <button className="btn-secondary" onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}>
+          <button className="btn-secondary" style={isMobile ? { width: '100%' } : {}} onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}>
             See Features
           </button>
         </div>
       </motion.section>
 
-      <section id="features" className="features-grid">
+      <section 
+        id="features" 
+        className="features-grid"
+        style={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          flexWrap: 'wrap',
+          gap: isMobile ? '20px' : '24px',
+          width: '100%',
+          padding: isMobile ? '0 20px 80px' : '40px 32px 120px'
+        }}
+      >
         {features.map((f, i) => (
           <motion.div 
             key={i}
             className="feature-card"
+            style={{
+              flex: isMobile ? 'none' : '1 1 280px',
+              width: isMobile ? '100%' : 'auto',
+              minWidth: isMobile ? '100%' : '280px'
+            }}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
