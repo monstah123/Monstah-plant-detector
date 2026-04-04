@@ -175,6 +175,93 @@
 .dashboard { padding: 32px; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .dashboard-header h2 { font-size: 28px; }
+
+.dashboard-controls {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+}
+
+.search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.search-icon {
+  color: var(--text);
+  opacity: 0.5;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 16px 0;
+  font-size: 16px;
+  color: var(--text-h);
+  outline: none;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.clear-search {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  margin-left: 8px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.clear-search:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.no-search-results {
+  grid-column: 1 / -1;
+  padding: 120px 20px;
+  text-align: center;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0.7;
+}
+
+.no-search-results svg {
+  opacity: 0.3;
+}
+
+.no-search-results p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .dashboard-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
 .stat-card {
   padding: 20px; border-radius: 16px; background: var(--glass-bg);
