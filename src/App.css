@@ -287,6 +287,22 @@
   .navbar { padding: 12px 16px; }
   .navbar-brand h2 { font-size: 16px; }
   .hero { padding: 48px 20px 40px; }
+  .hero h1 { font-size: 34px; letter-spacing: -1px; }
+
+  /* LANDING SPECIFIC MOBILE */
+  .landing-hero { padding: 60px 20px 40px; }
+  .hero-text { font-size: 38px; line-height: 1; letter-spacing: -2px; }
+  .hero-sub { font-size: 16px; margin-bottom: 32px; }
+  .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
+  
+  .features-grid {
+    grid-template-columns: 1fr; /* FORCE STACKING */
+    padding: 20px 20px 80px;
+    gap: 16px;
+  }
+  .feature-card { padding: 24px; }
+  .feature-icon { margin-bottom: 16px; width: 40px; height: 40px; }
+
   .upload-zone { padding: 32px 20px; }
   .upload-actions { flex-direction: column; width: 100%; }
   .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
@@ -294,6 +310,4 @@
   .dashboard { padding: 20px 16px; }
   .dashboard-stats { grid-template-columns: 1fr; }
   .result-actions { flex-direction: column; }
-  .hero-actions { flex-direction: column; width: 100%; }
-  .landing-hero { padding: 80px 20px 40px; }
 }
