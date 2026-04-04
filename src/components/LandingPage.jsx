@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Leaf, ShieldCheck, Cloud, Volume2, ArrowRight } from 'lucide-react';
+import { Leaf, ShieldCheck, Cloud, Volume2, ArrowRight, ImagePlus, Camera } from 'lucide-react';
 
 const LandingPage = ({ onStart }) => {
   const features = [
@@ -12,6 +12,16 @@ const LandingPage = ({ onStart }) => {
       icon: <ShieldCheck className="icon-blue" />,
       title: "Health Diagnostic",
       desc: "Detect leaf spots, root rot, and pest infestations before they spread."
+    },
+    {
+      icon: <ImagePlus className="icon-orange" />,
+      title: "Direct Upload",
+      desc: "Drag-and-drop high-resolution plant photos directly from your desktop or gallery."
+    },
+    {
+      icon: <Camera className="icon-red" />,
+      title: "Mobile Camera",
+      desc: "Optimized for mobile! Snap a live photo on the go for real-time field analysis."
     },
     {
       icon: <Cloud className="icon-purple" />,

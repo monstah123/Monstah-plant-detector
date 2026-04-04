@@ -259,6 +259,8 @@
 .icon-blue { color: #3b82f6; }
 .icon-purple { color: #a855f7; }
 .icon-yellow { color: #f59e0b; }
+.icon-orange { color: #f97316; }
+.icon-red { color: #ef4444; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
