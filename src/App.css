@@ -283,36 +283,39 @@
 .icon-cyan { color: #06b6d4; }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 800px) {
-  .navbar { padding: 10px 16px; justify-content: center; flex-direction: column; gap: 12px; }
-  .navbar-brand h2 { font-size: 18px; }
-  .navbar-links { width: 100%; justify-content: center; }
-  
-  .hero { padding: 40px 16px 30px; }
-  .hero h1 { font-size: 30px !important; letter-spacing: -1px; }
+@media (max-width: 960px) {
+  .navbar { padding: 12px; justify-content: center; flex-direction: column; gap: 8px; }
+  .navbar-brand h2 { font-size: 16px !important; white-space: nowrap; }
+  .navbar-links { gap: 4px; justify-content: center; width: 100%; }
+  .navbar-links button { padding: 6px 10px; font-size: 12px; }
 
-  /* LANDING SPECIFIC MOBILE */
-  .landing-hero { padding: 40px 16px 20px; min-height: auto; }
-  .hero-text { font-size: 32px !important; line-height: 1; letter-spacing: -1.5px; margin-bottom: 16px; }
-  .hero-sub { font-size: 14px; margin-bottom: 24px; }
-  .hero-actions { flex-direction: column; width: 100%; gap: 10px; }
-  
+  .hero { padding: 40px 16px; min-height: auto; }
+  .landing-hero { padding: 60px 16px 20px; }
+  .hero-text { font-size: 32px !important; line-height: 1.1; margin-bottom: 24px; }
+  .hero-sub { font-size: 14px; margin-bottom: 32px; }
+  .hero-actions { display: flex; flex-direction: column; width: 100%; gap: 12px; }
+  .btn-primary, .btn-secondary { width: 100% !important; justify-content: center; box-sizing: border-box; }
+
   .features-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 16px;
-    gap: 16px;
+    display: block !important; /* KILL GRID & FLEX */
+    padding: 0 16px 80px !important;
     width: 100%;
     box-sizing: border-box;
+    margin: 0 auto !important;
   }
-  .feature-card { width: 100%; box-sizing: border-box; padding: 24px; }
-  .feature-icon { margin-bottom: 12px; }
+  .feature-card {
+    width: 100% !important;
+    display: block !important;
+    margin-bottom: 24px !important; /* FORCE VERTICAL MARGINS */
+    padding: 32px 24px !important;
+    box-sizing: border-box !important;
+  }
+  .feature-icon { margin-bottom: 16px; }
 
-  .upload-zone { padding: 24px; }
-  .upload-actions { flex-direction: column; width: 100%; }
-  .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
-  .detail-grid { grid-column-gap: 0; grid-template-columns: 1fr; }
-  .dashboard { padding: 16px; }
+  .upload-zone { padding: 32px 20px; margin: 0 16px; }
+  .dashboard { padding: 20px 16px; }
   .dashboard-stats { grid-template-columns: 1fr; }
-  .result-actions { flex-direction: column; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .result-actions { flex-direction: column; gap: 8px; }
+  .result-actions button { width: 100% !important; }
 }
