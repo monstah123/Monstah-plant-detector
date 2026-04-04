@@ -141,6 +141,24 @@
 .detail-item .detail-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text); margin-bottom: 4px; }
 .detail-item .detail-value { font-size: 15px; font-weight: 600; color: var(--text-h); }
 
+.safety-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  margin-top: 8px; margin-bottom: 20px;
+}
+.safety-item {
+  padding: 12px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px solid var(--border); transition: all 0.2s;
+}
+.safety-main { display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.safety-item.safe { background: rgba(16, 185, 129, 0.1); color: #10b981; border-color: rgba(16, 185, 129, 0.2); }
+.safety-item.danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
+.safety-notes {
+  grid-column: span 3; padding: 12px 16px; border-radius: 12px;
+  background: var(--glass-bg); border: 1px dashed var(--border);
+  font-size: 13px; font-style: italic; color: var(--text); line-height: 1.4;
+}
+
 .care-tips { display: flex; flex-direction: column; gap: 10px; }
 .care-tips h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; }
 .care-tips ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }

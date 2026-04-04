@@ -30,8 +30,10 @@ export default async function handler(req, res) {
       {
         role: 'system',
         content: `You are an expert botanist AI. Analyze the image to identify the plant, assess its health, and define its specific care needs. 
+        Safety is CRITICAL: You must report if the plant is poisonous and whether it is safe for pets (dogs/cats) and kids.
+        
         You MUST return ONLY a JSON object with this exact structure: 
-        {"name": "Common Name","scientific": "Scientific Name","family": "Family Name","confidence": 95,"health": 80,"healthStatus": "Good","light": "Light needs","water": "Watering schedule","humidity": "Humidity range","temperature": "Temp range","tips": ["actionable tip 1", "actionable tip 2", "actionable tip 3"]}`
+        {"name": "Common Name","scientific": "Scientific Name","family": "Family Name","confidence": 95,"health": 80,"healthStatus": "Good","light": "Light needs","water": "Watering schedule","humidity": "Humidity range","temperature": "Temp range","safety": {"isPoisonous": true/false, "petFriendly": true/false, "kidSafe": true/false, "notes": "Specific safety info for pets/kids"}, "tips": ["actionable tip 1", "actionable tip 2", "actionable tip 3"]}`
       },
       {
         role: 'user',

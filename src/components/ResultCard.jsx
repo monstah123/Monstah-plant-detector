@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sun, Droplets, Wind, Thermometer, Sparkles, RotateCcw, BookmarkPlus, Check } from 'lucide-react';
+import { Sun, Droplets, Wind, Thermometer, Sparkles, RotateCcw, BookmarkPlus, Check, ShieldAlert, PawPrint, Baby } from 'lucide-react';
 import { getHealthColor } from '../utils/plantIdentifier';
 
 export default function ResultCard({ result, imageUrl, onNewScan, onSave, isSaved }) {
@@ -60,6 +60,34 @@ export default function ResultCard({ result, imageUrl, onNewScan, onSave, isSave
               <div className="detail-value">{result.temperature}</div>
             </div>
           </div>
+
+          {result.safety && (
+            <div className="safety-grid">
+              <div className={`safety-item ${result.safety.isPoisonous ? 'danger' : 'safe'}`}>
+                <div className="safety-main">
+                  <ShieldAlert size={18} />
+                  <span>{result.safety.isPoisonous ? 'Poisonous' : 'Non-Toxic'}</span>
+                </div>
+              </div>
+              <div className={`safety-item ${result.safety.petFriendly ? 'safe' : 'danger'}`}>
+                <div className="safety-main">
+                  <PawPrint size={18} />
+                  <span>{result.safety.petFriendly ? 'Pet Friendly' : 'Toxic to Pets'}</span>
+                </div>
+              </div>
+              <div className={`safety-item ${result.safety.kidSafe ? 'safe' : 'danger'}`}>
+                <div className="safety-main">
+                  <Baby size={18} />
+                  <span>{result.safety.kidSafe ? 'Kid Safe' : 'Keep away from kids'}</span>
+                </div>
+              </div>
+              {result.safety.notes && (
+                <div className="safety-notes">
+                  <p>{result.safety.notes}</p>
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="care-tips">
             <h3><Sparkles size={16} /> Care Tips</h3>
